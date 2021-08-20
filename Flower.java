@@ -94,7 +94,8 @@ public class Flower
      * include your name as the author!
      */
     public static void printGreeting() {
-
+        System.out.println("Flower");
+        System.out.println("By: Hidden Genius");
     }
 
     /**
@@ -106,7 +107,10 @@ public class Flower
      * -running should be initialized to true.
      */
     public static void setupGame() {
-
+        missedLetters = new ArrayList<String>();
+        correctLetters = new ArrayList<String>();
+        secretWord = getRandomWord();
+        running = true;
     }
 
     /**
@@ -116,7 +120,11 @@ public class Flower
      * prints "Missed letters: a b c d" on one line.
      */
     public static void printMissedLetters() {
-
+        String missedLettersString = "";
+        for(int i = 0; i < missedLetters.size(); i++) {
+            missedLettersString += missedLetters.get(i) + " ";
+        }
+        System.out.println("Missed letters: " + missedLettersString);
     }
 
     /**
@@ -130,7 +138,20 @@ public class Flower
      * "o", this function prints "Correct letters: _ o o _ _ _".
      */
     public static void printCorrectLetters() {
-
+        String[] blanks = new String[secretWord.length()];
+        for(int i = 0; i < secretWord.length(); i++) {
+            blanks[i] = "_";
+        }
+        for(int i = 0; i < secretWord.length(); i++) {
+            if(correctLetters.contains(secretWord.substring(i, i + 1))) {
+                blanks[i] = secretWord.substring(i, i + 1);
+            }
+        }
+        String blanksString = "";
+        for(int i = 0; i < blanks.length; i++) {
+            blanksString += blanks[i] + " ";
+        }
+        System.out.println("Correct letters: " + blanksString);
     }
 
     /**
@@ -139,7 +160,9 @@ public class Flower
      * letters the player has missed so far.
      */
     public static void printBoard() {
-
+        System.out.println(FLOWER_PICS[missedLetters.size()]);
+        printMissedLetters();
+        printCorrectLetters();
     }
 
     /**
@@ -149,7 +172,8 @@ public class Flower
      * (int) Math.floor(Math.random() * (max - min + 1) + min)
      */
     public static String getRandomWord() {
-
+        int randomIndex = (int) Math.floor(Math.random() * WORDS.length);
+        return WORDS[randomIndex];
     }
 
     /**
@@ -172,7 +196,19 @@ public class Flower
      * lowercase before validating it against the three conditions.
      */
     public static String getGuess(ArrayList<String> alreadyGuessed) {
-
+        while(true) {
+            System.out.print("Guess a letter: ");
+            String guess = SC.nextLine().toLowerCase();
+            if(guess.length() > 1) {
+                System.out.println("Please guess a single letter at a time.");
+            } else if(alreadyGuessed.contains(guess)) {
+                System.out.println("You have already guessed that letter. Try again.");
+            } else if("abcdefghijklmnopqrstuvwxyz".indexOf(guess) == -1) {
+                System.out.println("That is not a letter. Try again.");
+            } else {
+                return guess;
+            }
+        }
     }
 
     /**
@@ -202,7 +238,15 @@ public class Flower
      * remain unmodified.
      */
     public static void processGuess() {
- 
+        ArrayList<String> alreadyGuessed = new ArrayList<String>();
+        alreadyGuessed.addAll(missedLetters); 
+        alreadyGuessed.addAll(correctLetters);
+        String guess = getGuess(alreadyGuessed);
+        if(secretWord.indexOf(guess) >= 0) {
+            correctLetters.add(guess);
+        } else {
+            missedLetters.add(guess);
+        }
     }
 
     /**
@@ -227,7 +271,21 @@ public class Flower
      * out of the box a bit (at least, if you want to do it the "neat" way).
      */
     public static void checkWinLose() {
-
+        boolean win = true;
+        for(int i = 0; i < secretWord.length() && win; i++) {
+            if(!correctLetters.contains(secretWord.substring(i, i + 1))) {
+                win = false;
+            }
+        }
+        if(win) {
+            System.out.println("Yes! The secret word is \"" + secretWord + "\"! You win!");
+            processGameOver();
+        } else if(missedLetters.size() == FLOWER_PICS.length - 1) {
+            printBoard();
+            System.out.println("You have run out of guesses!");
+            System.out.println("The secret word was \"" + secretWord + "\"");
+            processGameOver();
+        }
     }
 
     /**
@@ -236,7 +294,14 @@ public class Flower
      * global variable running to false and print a simple "Goodbye" message.
      */
     public static void processGameOver() {
- 
+        System.out.print("Do you want to play again? (yes or no): ");
+        String response = SC.nextLine();
+        if(response.toLowerCase().startsWith("y")) {
+            setupGame();
+        } else {
+            running = false;
+            System.out.println("Thanks for playing! Goodbye!");
+        }
     }
 
     /**
@@ -251,6 +316,12 @@ public class Flower
      *    C) Check if the player has won or lost.
      */
     public static void main(String[] args) {
-
+        printGreeting();
+        setupGame();
+        while(running) {
+            printBoard();
+            processGuess();
+            checkWinLose();
+        }
     }
 }
