@@ -1,0 +1,37 @@
+#BlueJ class context
+comment0.target=Flower
+comment0.text=\n\ Write\ a\ description\ of\ class\ Flower\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=void\ printGreeting()
+comment1.text=\n\ Prints\ a\ simple\ greeting.\ Be\ as\ creative\ as\ you\ want\ here.\ Be\ sure\ to\ \n\ include\ your\ name\ as\ the\ author\!\n
+comment10.params=
+comment10.target=void\ processGameOver()
+comment10.text=\n\ Asks\ the\ player\ if\ they\ would\ like\ to\ play\ again.\ If\ they\ do,\ call\ \n\ setupGame()\ to\ reset\ the\ game's\ global\ variables.\ Otherwise\ set\ the\ \n\ global\ variable\ running\ to\ false\ and\ print\ a\ simple\ "Goodbye"\ message.\n
+comment11.params=args
+comment11.target=void\ main(java.lang.String[])
+comment11.text=\n\ The\ "mother\ function"\ of\ the\ program.\ Runs\ the\ game\ by\ doing\ the\ \n\ following\:\n\ 1)\ Print\ a\ greeting.\n\ 2)\ Setup\ the\ game.\n\ 3)\ In\ a\ loop\ that\ continues\ while\ the\ global\ variable\ running\ is\ true,\ \n\ \ \ \ do\ the\ following\:\n\ \ \ \ A)\ Print\ the\ board.\n\ \ \ \ B)\ Process\ a\ guess.\n\ \ \ \ C)\ Check\ if\ the\ player\ has\ won\ or\ lost.\n
+comment2.params=
+comment2.target=void\ setupGame()
+comment2.text=\n\ Initialize\ global\ variables\ as\ follows\:\n\ -missedLetters\ and\ correctLetters\ should\ be\ initialized\ as\ empty\ \n\ \ ArrayLists.\n\ -secretWord\ should\ be\ initialized\ as\ a\ random\ string\ from\ the\ WORD\ \n\ \ constant.\n\ -running\ should\ be\ initialized\ to\ true.\n
+comment3.params=
+comment3.target=void\ printMissedLetters()
+comment3.text=\n\ Prints\ the\ string\ "Missed\ letters\:\ ",\ along\ with\ all\ elements\ in\ \n\ missedLetters\ as\ a\ single\ string,\ with\ a\ space\ between\ each\ letter.\ \n\ For\ example,\ if\ missedLetters\ is\ ["a",\ "b",\ "c",\ "d"],\ this\ function\ \n\ prints\ "Missed\ letters\:\ a\ b\ c\ d"\ on\ one\ line.\n
+comment4.params=
+comment4.target=void\ printCorrectLetters()
+comment4.text=\n\ Prints\ the\ string\ "Secret\ Word\:\ ",\ along\ with\ whatever\ letters\ the\ \n\ player\ has\ guessed\ correctly,\ as\ a\ single\ string.\ The\ correct\ letters\ \n\ should\ appear\ where\ they\ normally\ do\ in\ the\ secret\ word.\ Letters\ the\ \n\ player\ has\ not\ yet\ guessed\ should\ appear\ as\ underscores\ ("blanks").\ \n\ There\ should\ be\ a\ space\ between\ each\ letter\ or\ blank.\n\ \n\ For\ example,\ if\ the\ secret\ word\ is\ "google"\ and\ the\ player\ has\ guessed\ \n\ "o",\ this\ function\ prints\ "Correct\ letters\:\ _\ o\ o\ _\ _\ _".\n
+comment5.params=
+comment5.target=void\ printBoard()
+comment5.text=\n\ Prints\ the\ "board",\ which\ is\ the\ current\ flower\ pic,\ missed\ letters,\ \n\ and\ correct\ letters.\ The\ current\ flower\ pic\ is\ determined\ by\ how\ many\ \n\ letters\ the\ player\ has\ missed\ so\ far.\n
+comment6.params=
+comment6.target=java.lang.String\ getRandomWord()
+comment6.text=\n\ Returns\ a\ random\ word\ from\ WORDS.\n\ \n\ The\ formula\ for\ generating\ a\ random\ integer\ is\:\n\ (int)\ Math.floor(Math.random()\ *\ (max\ -\ min\ +\ 1)\ +\ min)\n
+comment7.params=alreadyGuessed
+comment7.target=java.lang.String\ getGuess(java.util.ArrayList)
+comment7.text=\n\ In\ an\ infinite\ loop,\ prompt\ the\ player\ to\ guess\ a\ letter.\ The\ program\ \n\ can\ exit\ the\ loop\ only\ if\ the\ player's\ guess\ is\ "valid",\ which\ means\ \n\ it\ passes\ all\ three\ of\ these\ conditions\:\n\ 1)\ The\ length\ of\ the\ guess\ must\ be\ exactly\ 1.\n\ 2)\ The\ guess\ cannot\ be\ a\ letter\ they\ have\ already\ guessed\ \n\ \ \ \ (alreadyGuessed\ is\ an\ ArrayList\ passed\ into\ the\ function).\n\ 3)\ The\ guess\ must\ be\ a\ letter\ in\ the\ English\ alphabet.\n\ \n\ Return\ the\ guess\ if\ it\ is\ valid.\ If\ a\ guess\ does\ not\ satisfy\ a\ \n\ condition,\ print\ a\ message\ communicating\ this\ to\ the\ player.\ For\ \n\ example,\ if\ the\ player\ enters\ "abc"\ or\ "",\ they\ have\ failed\ condition\ \n\ \#1,\ so\ you\ should\ print\ something\ like,\ "Please\ guess\ one\ letter\ at\ a\ \n\ time.".\n\ \n\ Valid\ guesses\ should\ include\ both\ uppercase\ and\ lowercase\ letters.\ To\ \n\ make\ things\ easier\ on\ yourself,\ try\ setting\ the\ player's\ guess\ to\ all\ \n\ lowercase\ before\ validating\ it\ against\ the\ three\ conditions.\n
+comment8.params=
+comment8.target=void\ processGuess()
+comment8.text=\n\ Get\ a\ player's\ guess\ by\ calling\ getGuess().\ If\ the\ guess\ appears\ in\ \n\ the\ secret\ word,\ append\ that\ letter\ to\ correctLetters.\ Otherwise\ \n\ append\ it\ to\ missedLetters.\n\ \n\ Note\ that\ getGuess()\ has\ a\ parameter\ called\ alreadyGuessed,\ which\ \n\ prevents\ the\ player\ from\ guessing\ the\ same\ letter\ more\ than\ once.\ When\ \n\ calling\ getGuess(),\ you\ need\ to\ pass\ an\ ArrayList\ of\ guesses\ the\ user\ \n\ has\ already\ made,\ which\ is\ simply\ a\ combination\ of\ missedLetters\ and\ \n\ correctLetters\ ArrayLists.\n\ \n\ You\ can\ combine\ ArrayLists\ using\ the\ addAll()\ method.\ For\ example\:\n\ \n\ ArrayList<String>\ list1\ \=\ new\ ArrayList<String>();\n\ list1.add("a");\n\ list1.add("b");\n\ ArrayList<String>\ list2\ \=\ new\ ArrayList<String>();\n\ list2.add("c");\n\ list2.add("d");\n\ ArrayList<String>\ list3\ \=\ new\ ArrayList<String>();\n\ list3.addAll(list1);\n\ list3.addAll(list2);\n\ \n\ The\ value\ of\ list3\ is\ ["a",\ "b",\ "c",\ "d"],\ while\ list1\ and\ list2\ \n\ remain\ unmodified.\n
+comment9.params=
+comment9.target=void\ checkWinLose()
+comment9.text=\n\ Check\ if\ the\ player\ has\ won\ or\ lost,\ and\ call\ processGameOver()\ in\ \n\ either\ case.\ \n\ \n\ More\ details\:\n\ -If\ they\ have\ won,\ print\ a\ congratulatory\ message,\ then\ call\ \n\ \ processGameOver().\n\ -Otherwise,\ if\ they\ have\ lost,\ print\ the\ board\ one\ last\ time.\ Then\ \n\ \ print\ a\ message\ telling\ them\ they\ have\ run\ out\ of\ guesses,\ along\ with\ \n\ \ another\ message\ telling\ them\ what\ the\ secret\ word\ was.\ Finally,\ call\ \n\ \ processGameOver().\n\ -If\ they\ have\ neither\ won\ nor\ lost,\ do\ nothing.\n\ \n\ To\ check\ for\ a\ win,\ you\ should\ see\ if\ each\ letter\ in\ the\ secretWord\ \n\ string\ is\ contained\ in\ the\ correctLetters\ ArrayList.\ You\ can\ do\ this\ \n\ with\ a\ for\ loop\ that\ passes\ through\ the\ length\ of\ secretWord,\ but\ exits\n\ the\ moment\ it\ finds\ a\ letter\ that\ isn't\ contained\ in\ correctLetters.\ \n\ \n\ This\ is\ the\ trickiest\ part\ of\ this\ project\ and\ requires\ you\ to\ think\ \n\ out\ of\ the\ box\ a\ bit\ (at\ least,\ if\ you\ want\ to\ do\ it\ the\ "neat"\ way).\n
+numComments=12
